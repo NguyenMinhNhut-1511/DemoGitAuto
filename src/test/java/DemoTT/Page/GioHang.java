@@ -11,7 +11,7 @@ import javax.lang.model.element.Name;
 
 public class GioHang {
     private WebDriver driver;
-    private By HoTen = By.cssSelector("#cusName"); //Comment
+    private By HoTen = By.cssSelector("#cusName");
     private By SDT = By.cssSelector("#cusPhone");
 
     private By dropdownTP = By.cssSelector("form[class='active'] div[class='btn-click country'] button[type='button']");
