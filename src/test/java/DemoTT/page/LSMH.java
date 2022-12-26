@@ -1,11 +1,10 @@
-package DemoTT.Page;
+package DemoTT.page;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
+
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 public class LSMH {
     WebDriver driver;
