@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 public class Testcase extends Setup {
     private WebDriver driver;
 
-    ChonSp chonsanpham; //test comment
+    ChonSp chonsanpham;
     TrangChu trangchu;
     GioHang giohang;
 
