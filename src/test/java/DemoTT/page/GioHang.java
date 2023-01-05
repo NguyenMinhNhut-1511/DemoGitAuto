@@ -7,6 +7,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import javax.lang.model.element.Name;
+
 public class GioHang {
     private WebDriver driver;
     private By HoTen = By.cssSelector("#cusName");
@@ -24,6 +26,8 @@ public class GioHang {
     }
 
     public void ThongTinDH(String Name,String sdt){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollTo(0,300)");
         WebElement NhapTen = driver.findElement(HoTen);
         if (NhapTen.isDisplayed()) {
             NhapTen.sendKeys(Name);
@@ -34,6 +38,10 @@ public class GioHang {
         }
     }
     public void Diachi(String diachi) {
+        WebElement NhapDiaChi = driver.findElement(Nhapdiachi);
+        if (NhapDiaChi.isDisplayed()) {
+            NhapDiaChi.sendKeys(diachi);
+        }
         driver.findElement(dropdownTP).click();
         sleep(2000);
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -47,27 +55,35 @@ public class GioHang {
         sleep(2000);
         //An Khanh
         js.executeScript("document.querySelector(\"div[class='wards'] aside:nth-child(1) span:nth-child(1)\").click()");
-        WebElement NhapDiaChi = driver.findElement(Nhapdiachi);
-        if (NhapDiaChi.isDisplayed()) {
-            NhapDiaChi.sendKeys(diachi);
-        }
+
+    }
+    public void scroll(){
+        JavascriptExecutor js= (JavascriptExecutor) driver;
+        js.executeScript("document.querySelector(\"button[type='button'] b\").click()");
+        WebElement element7 = driver.findElement(By.xpath("//button[@class='submitorder']"));
+        js.executeScript("arguments[0].scrollIntoView(true);", element7);
     }
     public void OrderGiao(String Name,String sdt,String diachi){
-    sleep(4000);
-    log.info("GioiTinh");
-    JavascriptExecutor js = (JavascriptExecutor) driver;
-    log.info("Nhap thong tin DH");
-    ThongTinDH(Name,sdt);
-    log.info("Diachi");
-    Diachi(diachi);
-    log.info("GioiTinh");
-    sleep(3000);
-    //Radio button giới tính Nam
-    js.executeScript("document.querySelector(\"body > div:nth-child(10) > section:nth-child(1) > div:nth-child(2) > div:nth-child(3) > form:nth-child(2) > div:nth-child(1) > span:nth-child(2) > i:nth-child(1)\").click();");
-    log.info("DatHang");
-    sleep(2000);
-    //Button đặt hàng
-    js.executeScript("document.querySelector(\"button[type='button'] b\").click()");
+        sleep(4000);
+        log.info("GioiTinh");
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement element3 = driver.findElement(By.xpath("//div[@class='sex-customer']//span[contains(text(),'Anh')]//i[@class='cartnew-choose']"));
+        js.executeScript("arguments[0].click();", element3);
+        log.info("Nhap thong tin DH");
+        ThongTinDH(Name,sdt);
+        log.info("Diachi");
+        Diachi(diachi);
+        sleep(3000);
+        scroll();
+        //Radio button giới tính Nam
+//    js.executeScript("document.querySelector(\"body > div:nth-child(10) > section:nth-child(1) > div:nth-child(2) > div:nth-child(3) > form:nth-child(2) > div:nth-child(1) > span:nth-child(2) > i:nth-child(1)\").click();");
+        log.info("DatHang");
+        sleep(1000);
+        WebElement element4 = driver.findElement(By.xpath("//h4[contains(text(),'Đơn hàng:')]"));
+        //Button đặt hàng
+        js.executeScript("arguments[0].style.border='3px solid red'", element4); // Highlight cụm text "đặt hàng"
+        sleep(5000);
+//    js.executeScript("document.querySelector(\"button[type='button'] b\").click()");
     }
     static Logger log = LogManager.getLogger(GioHang.class.getName());
     public static void main(String[]args){
