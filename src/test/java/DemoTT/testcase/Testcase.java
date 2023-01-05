@@ -1,5 +1,5 @@
 package DemoTT.testcase;
-import DemoTT.page.LSMH;
+import DemoTT.Page.LSMH;
 import DemoTT.base.Setup;
 import DemoTT.page.ChonSp;
 import DemoTT.page.GioHang;
@@ -22,15 +22,17 @@ public class Testcase extends Setup {
     @Test
     public void Giaotainha()
     {
-        trangchu = new TrangChu(driver);
+        trangchu=new TrangChu(driver);
         trangchu.ClickMenuThietBi();
         trangchu.Kittest();
-        chonsanpham = new ChonSp(driver);
+        chonsanpham=new ChonSp(driver);
         chonsanpham.muaspgiohang();
-        giohang = new GioHang(driver);
-        giohang.OrderGiao("Phuc","0938727300","12344567");
-        lichsumuahang = new LSMH(driver);
-        lichsumuahang.loggin();
+        giohang=new GioHang(driver);
+        giohang.OrderGiao("It test","0938727300","12344567");
+        lichsumuahang=new LSMH(driver);
+        lichsumuahang.loggin(driver.getWindowHandle());
         lichsumuahang.DNLSMH("0938727300");
+        lichsumuahang.HuyDH(driver.getWindowHandle());
+        //lichsumuahang.ReloadTrang(driver.getWindowHandle());
     }
 }
