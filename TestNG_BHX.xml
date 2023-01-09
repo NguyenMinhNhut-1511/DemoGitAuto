@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Suite" verbose="1">
 
-    <parameter name="browserType" value="chrome"/>
+    <parameter name="browserType" value="firefox"/>
     <parameter name="webURL"
                value="https://www.bachhoaxanh.com"/>
     <test name="Test">
