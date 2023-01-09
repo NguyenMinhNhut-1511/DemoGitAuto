@@ -90,9 +90,9 @@ public class Setup {
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         System.out.println("run duoc teardown...");
     }
-    @AfterClass
-    public void Shutdown() throws Exception{
-        //Teardown();
-        driver.quit();
-    }
+//    @AfterClass
+//    public void Shutdown() throws Exception{
+//        //Teardown();
+//        driver.quit();
+//    }
 }

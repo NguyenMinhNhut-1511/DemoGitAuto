@@ -53,6 +53,7 @@ public class LSMH {
     public void DNLSMH(String sdt){
         log.info("DangNhap");
         DangNhap(sdt);
+        sleep(4000);
     }
     public void HuyDH(String mainWindow1) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -61,13 +62,15 @@ public class LSMH {
         for (String child : set) {
             if (!mainWindow1.equals(child)) {
                 driver.switchTo().window(child);
+                sleep(2000);
                 driver.findElement(By.xpath("//a[contains(text(),'Hủy')]")).click();
                 sleep(2000);
                 WebElement element6 = driver.findElement(By.xpath("//span[contains(text(),'Đổi ý, không mua nữa')]//i[@class='cartnew-choose']"));
                 js.executeScript("arguments[0].click();", element6);
+                sleep(2000);
                 driver.findElement(By.xpath("//button[@class='cancel-order-popup__content__actions__button cart-result-fr close-cancel-popup']")).click();
                 driver.findElement(By.xpath("//button[@class='success-cencell-popup']")).click();
-                sleep(5000);
+                sleep(4000);
             }
         }
         driver.switchTo().window(mainWindow1);
