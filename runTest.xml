@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Page Object test example">
+    <parameter name="browserType" value="chrome"/>
+    <parameter name="webURL"
+               value="https://www.bachhoaxanh.com/"/>
+    <test name="Case chọn địa chỉ giao hàng">
+        <classes>
+            <class name="project.testcases.HeaderCase">
+                <methods>
+                    <include name="SettingLocation"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
