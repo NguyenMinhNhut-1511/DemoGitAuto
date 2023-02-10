@@ -378,7 +378,7 @@ Nếu đủ điều kiện thì sẽ dùng Select.byIndex
     protected void choose_shipDateTime(String Day, String Time) {
         scroll_actions.ScrollDown50percent();
         if (this.Check_chooseShipDate(Day)) {
-          sleepInSecond(0.5);
+            sleepInSecond(0.5);
             Select select_gioNhanHang = new Select(wait.waitForClickAbleBySelector(dropdown_shipTimeGroupList_Selector));
             List<WebElement> List_gioNhanHang = select_gioNhanHang.getOptions();
             if (List_gioNhanHang.size() >= 2) {
@@ -410,35 +410,35 @@ Nếu đủ điều kiện thì sẽ dùng Select.byIndex
                         }
                     } else {
                         Log.info("Không có thời gian giao phù hợp.");
-                        if (List_gioNhanHang.get((List_gioNhanHang.size() - 1)).isEnabled()) {
-                            sleepInSecond(2);
-                            select_gioNhanHang.selectByIndex((List_gioNhanHang.size() - 1));
-//                            sleepInSecond(1.5);
+                        sleepInSecond(1.5);
+//                        this.driver.findElement(By.cssSelector("span[aria-labelledby='select2-ShiptimeGroupList_0_Time-container']")).click();
+                        select_gioNhanHang.selectByIndex((List_gioNhanHang.size() - 1));
+                        sleepInSecond(1.5);
 //                            String mocgiao = List_gioNhanHang.get((List_gioNhanHang.size() - 1)).getText()
 //                                    .replace("<div class=''><span class='sb out'>", " ")
 //                                    .replace("</span>", " -")
 //                                    .replace("<div class='ShipOverTime'> </div></div><div class='deliverytypename sb'>(", " - ")
 //                                    .replace(")</div>", "");
 //                            Log.info("Đã chọn mốc giao cuối cùng: " + mocgiao);
-                            break;
-                        }
+                        break;
                     }
                 }
-            } else {
-                Assert.assertTrue(false, "Không lấy được ngày giao");
             }
+        } else {
+            Assert.assertTrue(false, "Không lấy được ngày giao");
         }
-
     }
+
 
     protected void choose_Payment(String payment) {
         wait.waitForPageLoaded();
-        scroll_actions.ScrollIntoViewElement(this.btn_loadMorePayment());
-        try{
+        try {
+            scroll_actions.ScrollIntoViewElement(this.btn_loadMorePayment());
             if (this.btn_loadMorePayment().isDisplayed()) {
                 this.btn_loadMorePayment().click();
             }
-        }catch(Exception ignore){};
+        } catch (Exception ignore) {
+        }
 
         wait.waitForPageLoaded();
         List<WebElement> ListPayment = driver.findElements(By.cssSelector("div[class^='payment-']"));
@@ -547,80 +547,92 @@ Nếu đủ điều kiện thì sẽ dùng Select.byIndex
 
     protected void Handle_PopUp_Error(String fullName, String phoneNumber, String address, String day, String time) {
 
-        if (check_PopUp_Error_Input()) {
-            do {
-                if (wait.waitForvisibilityOfSelector(txt_ErrorInput_Popup_Selector).getText().contains("Vui lòng cập nhật giới tính")) {
-                    wait.waitForTryCatch_VissibilityOfSelector(btn_Accept_ErrorInput_Popup_Selector).click();
-                    scroll_actions.ScrollUp();
-                    this.choose_Gender("anh");
-                    click_btn_submitOder_Step2();
-                    try {
-                        if (NavigateToOderResultPage().check_SubmitOderSuccess())
-                            break;
-                    } catch (Exception ignored) {
+        try {
+            if (check_PopUp_Error_Input()) {
+                do {
+                    if (wait.waitForvisibilityOfSelector(txt_ErrorInput_Popup_Selector).getText().contains("Vui lòng cập nhật giới tính")) {
+                        wait.waitForTryCatch_VissibilityOfSelector(btn_Accept_ErrorInput_Popup_Selector).click();
+                        scroll_actions.ScrollUp();
+                        this.choose_Gender("anh");
+                        click_btn_submitOder_Step2();
+                        try {
+                            if (NavigateToOderResultPage().check_SubmitOderSuccess())
+                                break;
+                        } catch (Exception ignored) {
+                        }
+                    } else if (wait.waitForvisibilityOfSelector(txt_ErrorInput_Popup_Selector).getText().contains("Vui lòng cập nhật họ và tên\n" +
+                            "Vui lòng nhập số điện thoại\n" +
+                            "Vui lòng nhập địa chỉ nhận hàng\n" +
+                            "Vui lòng chọn giờ giao hàng")) {
+                        wait.waitForTryCatch_VissibilityOfSelector(btn_Accept_ErrorInput_Popup_Selector).click();
+                        this.input_fullName(fullName);
+                        input_phoneNumber(phoneNumber);
+                        input_Address(address);
+                        choose_shipDateTime(day, time);
+                        click_btn_submitOder_Step2();
+                        try {
+                            if (NavigateToOderResultPage().check_SubmitOderSuccess())
+                                break;
+                        } catch (Exception ignored) {
+                        }
+                    } else if (wait.waitForvisibilityOfSelector(txt_ErrorInput_Popup_Selector).getText().contains("Vui lòng nhập địa chỉ nhận hàng")) {
+                        wait.waitForClickAbleBySelector(btn_Accept_ErrorInput_Popup_Selector).click();
+                        this.input_Address(address);
+                        scroll_actions.ScrollIntoViewElement(this.btn_submitOder_Step2());
+                        click_btn_submitOder_Step2();
+                        try {
+                            if (NavigateToOderResultPage().check_SubmitOderSuccess())
+                                break;
+                        } catch (Exception ignored) {
+                        }
+                    } else if (wait.waitForvisibilityOfSelector(txt_ErrorInput_Popup_Selector).getText().contains("Vui lòng nhập số điện thoại\n" +
+                            "Quý khách vui lòng nhập địa chỉ mua hàng")) {
+                        wait.waitForTryCatch_VissibilityOfSelector(btn_Accept_ErrorInput_Popup_Selector).click();
+                        this.input_phoneNumber(phoneNumber);
+                        scroll_actions.ScrollIntoViewElement(this.btn_submitOder_Step2());
+                        click_btn_submitOder_Step2();
+                        try {
+                            if (NavigateToOderResultPage().check_SubmitOderSuccess())
+                                break;
+                        } catch (Exception ignored) {
+                        }
+                    } else if (wait.waitForvisibilityOfSelector(txt_ErrorInput_Popup_Selector).getText().contains("Vui lòng cập nhật họ và tên")) {
+                        wait.waitForTryCatch_VissibilityOfSelector(btn_Accept_ErrorInput_Popup_Selector).click();
+                        this.input_fullName(fullName);
+                        scroll_actions.ScrollIntoViewElement(this.btn_submitOder_Step2());
+                        click_btn_submitOder_Step2();
+                        try {
+                            if (NavigateToOderResultPage().check_SubmitOderSuccess())
+                                break;
+                        } catch (Exception ignored) {
+                        }
+                    } else if (wait.waitForvisibilityOfSelector(txt_ErrorInput_Popup_Selector).getText().contains("Vui lòng cập nhật họ và tên\n" +
+                            "Vui lòng nhập địa chỉ nhận hàng")) {
+                        wait.waitForTryCatch_VissibilityOfSelector(btn_Accept_ErrorInput_Popup_Selector).click();
+                        this.input_fullName(fullName);
+                        this.box_Address().clear();
+                        this.input_Address(address);
+                        scroll_actions.ScrollIntoViewElement(this.btn_submitOder_Step2());
+                        click_btn_submitOder_Step2();
+                        try {
+                            if (NavigateToOderResultPage().check_SubmitOderSuccess())
+                                break;
+                        } catch (Exception ignored) {
+                        }
+                    } else if (wait.waitForvisibilityOfSelector(txt_ErrorInput_Popup_Selector).getText().contains("Vui lòng chọn giờ giao hàng")) {
+                        wait.waitForTryCatch_VissibilityOfSelector(btn_Accept_ErrorInput_Popup_Selector).click();
+                        this.choose_shipDateTime(day, time);
+                        scroll_actions.ScrollIntoViewElement(this.btn_submitOder_Step2());
+                        click_btn_submitOder_Step2();
+                        try {
+                            if (NavigateToOderResultPage().check_SubmitOderSuccess())
+                                break;
+                        } catch (Exception ignored) {
+                        }
                     }
-                } else if (wait.waitForvisibilityOfSelector(txt_ErrorInput_Popup_Selector).getText().contains("Vui lòng cập nhật họ và tên\n" +
-                        "Vui lòng nhập số điện thoại\n" +
-                        "Vui lòng nhập địa chỉ nhận hàng\n" +
-                        "Vui lòng chọn giờ giao hàng")) {
-                    wait.waitForTryCatch_VissibilityOfSelector(btn_Accept_ErrorInput_Popup_Selector).click();
-                    this.input_fullName(fullName);
-                    input_phoneNumber(phoneNumber);
-                    input_Address(address);
-                    choose_shipDateTime(day, time);
-                    click_btn_submitOder_Step2();
-                    try {
-                        if (NavigateToOderResultPage().check_SubmitOderSuccess())
-                            break;
-                    } catch (Exception ignored) {
-                    }
-                } else if (wait.waitForvisibilityOfSelector(txt_ErrorInput_Popup_Selector).getText().contains("Vui lòng nhập địa chỉ nhận hàng")) {
-                    wait.waitForClickAbleBySelector(btn_Accept_ErrorInput_Popup_Selector).click();
-                    this.input_Address(address);
-                    scroll_actions.ScrollIntoViewElement(this.btn_submitOder_Step2());
-                    click_btn_submitOder_Step2();
-                    try {
-                        if (NavigateToOderResultPage().check_SubmitOderSuccess())
-                            break;
-                    } catch (Exception ignored) {
-                    }
-                }
-                else if(wait.waitForvisibilityOfSelector(txt_ErrorInput_Popup_Selector).getText().contains("Vui lòng nhập số điện thoại\n" +
-                        "Quý khách vui lòng nhập địa chỉ mua hàng"))
-                {
-                    this.input_phoneNumber(phoneNumber);
-                    scroll_actions.ScrollIntoViewElement(this.btn_submitOder_Step2());
-                    click_btn_submitOder_Step2();
-                    try {
-                        if (NavigateToOderResultPage().check_SubmitOderSuccess())
-                            break;
-                    } catch (Exception ignored) {
-                    }
-                }
-                else if(wait.waitForvisibilityOfSelector(txt_ErrorInput_Popup_Selector).getText().contains("Vui lòng cập nhật họ và tên"))
-                {
-                    this.input_fullName(fullName);
-                    scroll_actions.ScrollIntoViewElement(this.btn_submitOder_Step2());
-                    click_btn_submitOder_Step2();
-                    try {
-                        if (NavigateToOderResultPage().check_SubmitOderSuccess())
-                            break;
-                    } catch (Exception ignored) {
-                    }
-                }
-                else if(wait.waitForvisibilityOfSelector(txt_ErrorInput_Popup_Selector).getText().contains("Vui lòng cập nhật họ và tên\n" +
-                        "Vui lòng nhập địa chỉ nhận hàng"))
-                {
-                    this.input_fullName(fullName);
-                    scroll_actions.ScrollIntoViewElement(this.btn_submitOder_Step2());
-                    click_btn_submitOder_Step2();
-                    try {
-                        if (NavigateToOderResultPage().check_SubmitOderSuccess())
-                            break;
-                    } catch (Exception ignored) {
-                    }
-                }
-            } while ((wait.waitForTryCatch_VissibilityOfSelector(btn_Accept_ErrorInput_Popup_Selector).isDisplayed()));
+                } while ((wait.waitForTryCatch_VissibilityOfSelector(btn_Accept_ErrorInput_Popup_Selector).isDisplayed()));
+            }
+        } catch (Exception ignore) {
         }
     }
 

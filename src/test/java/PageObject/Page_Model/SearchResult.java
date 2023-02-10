@@ -37,16 +37,21 @@ public class SearchResult extends PageObject_Base {
         int n = list_btnMua.size();
         Random random = new Random();
         if (n > 0) {
-            int random1 = 19;
-                    //random.nextInt((n));
+            int random1 = random.nextInt((n));
             Log.info("random1: " + random1);
-            if(random1>8)
-            {
+            if (random1 > 8) {
                 scroll_actions.ScrollDown50percent();
             }
             list_btnMua.get(random1).click();
             this.thongTinSanPhamchonMua(random1);
-        } else {
+            try {
+                if (wait.waitForTryCatch_VissibilityOfSelector(By.cssSelector("div[class='ajs-content']")).isDisplayed()) {
+                    wait.waitForTryCatch_VissibilityOfSelector(By.cssSelector("button[class='ajs-button ajs-ok']")).click();
+                    this.AddProductRandom();
+                }
+            } catch (Exception ignore) {
+            }
+            } else {
             Log.info("Không có sản phẩm");
         }
         return this;
@@ -100,8 +105,7 @@ public class SearchResult extends PageObject_Base {
             } else {
                 Log.info("Không có sản phẩm phù hợp với từ khoá " + keywords);
             }
-        }
-        else {
+        } else {
             scroll_actions.ScrollDown(2);
             List<WebElement> list_tenSP1 = this.driver.findElements(By.xpath("//div[7]/ul[1]/li//h3"));
             Log.info(list_tenSP1.size());
@@ -132,12 +136,12 @@ public class SearchResult extends PageObject_Base {
         }
     }
 
-        protected SearchResult verify_searchResult (String keywords){
+    protected SearchResult verify_searchResult(String keywords) {
 //        if (!this.verify_ketquatimkiem(keywords)) {
 //            Assert.assertTrue(this.verify_ketquatimkiem(keywords));
 //        }
 //        Assert.assertTrue(this.verify_ketquatimkiem(keywords));
-            verify_ketquatimkiem(keywords);
-            return this;
-        }
+        verify_ketquatimkiem(keywords);
+        return this;
     }
+}

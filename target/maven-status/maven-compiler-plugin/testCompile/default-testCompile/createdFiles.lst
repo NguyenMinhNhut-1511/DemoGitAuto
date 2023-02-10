@@ -27,7 +27,6 @@ Helpers\Logger\TestListener.class
 Helpers\ExcelHelpers\Excel_Helpers$1.class
 PageObject\Page_Model\Login.class
 TestScript_Demo\Demo3.class
-TestScript_Demo\TestLogin.class
 PageObject\Page\Histories_Page.class
 PageObject\Page_Model\Histories.class
 PageObject\Page\CartStep1_Page.class

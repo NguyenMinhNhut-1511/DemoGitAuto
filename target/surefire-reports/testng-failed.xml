@@ -5,10 +5,10 @@
     <classes>
       <class name="TestScript_Demo.DatHangFlows">
         <methods>
-          <include name="Case1"/>
+          <include name="DatHangKhoSieuThi"/>
+          <include name="DatHangKhoDC"/>
           <include name="CloseBrowser"/>
           <include name="takeScreenshot"/>
-          <include name="Case2"/>
           <include name="OpenBrowser"/>
           <include name="getDataFromExcelFile"/>
         </methods>

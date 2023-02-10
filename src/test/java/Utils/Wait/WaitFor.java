@@ -81,11 +81,6 @@ public class WaitFor {
 
     public WebElement waitForTryCatch_VissibilityOfSelector(By Selector)
     {
-        WebElement Element = null;
-        try {
-            Element = wait_short.until(ExpectedConditions.visibilityOfElementLocated(Selector));
-        }
-        catch (Exception ignore){}
-        return Element;
+        return wait_short.until(ExpectedConditions.visibilityOfElementLocated(Selector));
     }
 }

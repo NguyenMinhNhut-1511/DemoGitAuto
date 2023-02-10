@@ -34,7 +34,7 @@ public class DatHangFlows {
     String Expect_InfoCustomer, Expect_ShipAddress;
 
 
-    @BeforeSuite
+    @BeforeSuite (alwaysRun = true)
     public void OpenBrowser() {
         driver = getChromeDriver();
         GotoURL(Constant.URL);
