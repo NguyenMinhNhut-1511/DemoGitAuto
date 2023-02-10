@@ -1,16 +1,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Suite" verbose="1">
 
-    <parameter name="browserType" value="chrome"/>
-    <parameter name="webURL"
-               value="https://staging.nhathuocankhang.com/"/>
-    <test name="Test">
+<suite name="Suite" verbose="1">
+    <test name="Demo">
         <classes>
-            <class name="DemoTT.testcase.Testcase">
-                <methods>
-                    <include name="Giaotainha"/>
-                </methods>
-            </class>
+            <class name="TestScript_Demo.DatHangFlows"></class>
         </classes>
     </test>
 </suite>

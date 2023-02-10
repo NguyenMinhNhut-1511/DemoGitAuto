@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" verbose="0" name="Failed suite [Suite]">
+  <test thread-count="5" verbose="0" name="Demo(failed)">
+    <classes>
+      <class name="TestScript_Demo.DatHangFlows">
+        <methods>
+          <include name="Case1"/>
+          <include name="CloseBrowser"/>
+          <include name="takeScreenshot"/>
+          <include name="Case2"/>
+          <include name="OpenBrowser"/>
+          <include name="getDataFromExcelFile"/>
+        </methods>
+      </class> <!-- TestScript_Demo.DatHangFlows -->
+    </classes>
+  </test> <!-- Demo(failed) -->
+</suite> <!-- Failed suite [Suite] -->

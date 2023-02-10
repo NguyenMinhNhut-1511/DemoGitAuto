@@ -6,12 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Test" />
-        <module name="DemoGitAuto" />
+        <module name="Demo_Selenium_Buoi1" />
+        <module name="Project01" />
+        <module name="Web-Automation-Test-BHX" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="DemoTT" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
